@@ -12,6 +12,11 @@
 
    <!-- Document Library config section -->
    <config evaluator="string-compare" condition="DocumentLibrary">
+     <types>
+         <type name="cm:content">
+             <subtype name="sc:testType" />
+         </type>
+     </types>
       <!--
          Used by the "Manage Aspects" action
 
@@ -73,6 +78,56 @@
                    <control template="/org/alfresco/components/form/controls/textfield.ftl" />
                </field>
                <field id="sc:testMultiText" label="Test Multi Text">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+			   </field>
+            </appearance>
+         </form>
+      </forms>
+   </config>
+
+   <config replace="true" evaluator="string-compare" condition="AdvancedSearch">
+       <advanced-search>
+           <!-- Forms for the advanced search type list -->
+           <forms>
+               <form labelId="search.form.label.cm_content" descriptionId="search.form.desc.cm_content">cm:content</form>
+               <form labelId="search.form.label.cm_folder" descriptionId="search.form.desc.cm_folder">cm:folder</form>
+               <form labelId="type.sc_testType" descriptionId="search.form.desc.sc_testType">sc:testType</form>
+           </forms>
+       </advanced-search>
+   </config>
+
+   <config evaluator="model-type" condition="sc:testType">
+      <forms>
+         <!-- Search form -->
+         <form id="search">
+            <field-visibility>
+               <show id="cm:name" />
+               <show id="cm:title" force="true" />
+               <show id="cm:description" force="true" />
+               <show id="mimetype" />
+               <show id="cm:modified" />
+               <show id="cm:modifier" />
+               <!-- sc:testAspect -->
+               <show id="sc:testMultiTextInType" />
+               <show id="sc:testSingleTextInType" />
+            </field-visibility>
+            <appearance>
+               <field id="mimetype">
+                  <control template="/org/alfresco/components/form/controls/mimetype.ftl" />
+               </field>
+               <field id="cm:modifier">
+                  <control>
+                     <control-param name="forceEditable">true</control-param>
+                  </control>
+               </field>
+               <field id="cm:modified">
+                  <control template="/org/alfresco/components/form/controls/daterange.ftl" />
+               </field>
+               <!-- sc:testAspect -->
+               <field id="sc:testSingleTextInType" label="Test Single Text">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sc:testMultiTextInType" label="Test Multi Text">
                    <control template="/org/alfresco/components/form/controls/textfield.ftl" />
 			   </field>
             </appearance>

@@ -23,6 +23,23 @@
     <!-- ===============================================================================================================
         Constraints, Types, and Aspects go here...
         -->
+    <types>
+  		<type name="sc:testType">
+        <title>Someco Test Type</title>
+        <parent>cm:content</parent>
+  			<properties>
+  				<property name="sc:testMultiTextInType">
+  					<type>d:text</type>
+  					<multiple>true</multiple>
+  				</property>
+          <property name="sc:testSingleTextInType">
+            <type>d:text</type>
+            <multiple>false</multiple>
+          </property>
+  			</properties>
+  		</type>
+  	</types>
+
     <aspects>
   		<aspect name="sc:testAspect">
   			<title>Someco Test Aspect</title>
