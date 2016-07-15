@@ -1,0 +1,83 @@
+<!-- Share configuration related to this particular Share module extension, such as:
+     - Doclib action config
+     - Form config
+     - Aspect and Type config
+
+    Note. Any configuration related to the whole Share.war webapp
+           (i.e. not specific to this share extension) should be
+            placed in the environment specific config:
+             alfresco/tomcat/shared/classes/alfresco/web-extension/share-config-custom.xml file
+     -->
+<alfresco-config>
+
+   <!-- Document Library config section -->
+   <config evaluator="string-compare" condition="DocumentLibrary">
+      <!--
+         Used by the "Manage Aspects" action
+
+         For custom aspects, remember to also add the relevant i18n string(s)
+            cm_myaspect=My Aspect
+      -->
+      <aspects>
+         <!-- Aspects that a user can see -->
+         <visible>
+            <aspect name="sc:testAspect" />
+         </visible>
+      </aspects>
+   </config>
+
+   <config evaluator="aspect" condition="sc:testAspect">
+	   <forms>
+	      <form>
+	         <field-visibility>
+                <show id="sc:testMultiText" />
+                <show id="sc:testSingleText" />
+	         </field-visibility>
+	         <appearance>
+                <field id="sc:testMultiText" label="Test Multi Text" />
+                <field id="sc:testSingleText" label-id="Test Single Text" />
+			</appearance>
+	      </form>
+	   </forms>
+   </config>
+
+   <config evaluator="model-type" condition="cm:content">
+      <forms>
+         <!-- Search form -->
+         <form id="search">
+            <field-visibility>
+               <show id="cm:name" />
+               <show id="cm:title" force="true" />
+               <show id="cm:description" force="true" />
+               <show id="mimetype" />
+               <show id="cm:modified" />
+               <show id="cm:modifier" />
+               <!-- sc:testAspect -->
+               <show id="sc:testMultiText" />
+               <show id="sc:testSingleText" />
+            </field-visibility>
+            <appearance>
+               <field id="mimetype">
+                  <control template="/org/alfresco/components/form/controls/mimetype.ftl" />
+               </field>
+               <field id="cm:modifier">
+                  <control>
+                     <control-param name="forceEditable">true</control-param>
+                  </control>
+               </field>
+               <field id="cm:modified">
+                  <control template="/org/alfresco/components/form/controls/daterange.ftl" />
+               </field>
+               <!-- sc:testAspect -->
+               <field id="sc:testSingleText" label="Test Single Text">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+               </field>
+               <field id="sc:testMultiText" label="Test Multi Text">
+                   <control template="/org/alfresco/components/form/controls/textfield.ftl" />
+			   </field>
+            </appearance>
+         </form>
+      </forms>
+   </config>
+
+</alfresco-config>
